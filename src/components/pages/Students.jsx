@@ -24,9 +24,10 @@ const Students = () => {
   const [showForm, setShowForm] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+const [searchQuery, setSearchQuery] = useState("");
   const [gradeFilter, setGradeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [departmentFilter, setDepartmentFilter] = useState("all");
 
   const loadStudents = async () => {
     try {
@@ -56,7 +57,7 @@ const Students = () => {
       );
     }
 
-    if (gradeFilter !== "all") {
+if (gradeFilter !== "all") {
       filtered = filtered.filter(student => student.gradeLevel === parseInt(gradeFilter));
     }
 
@@ -64,8 +65,12 @@ const Students = () => {
       filtered = filtered.filter(student => student.status === statusFilter);
     }
 
+    if (departmentFilter !== "all") {
+      filtered = filtered.filter(student => student.department === departmentFilter);
+    }
+
     setFilteredStudents(filtered);
-  }, [students, searchQuery, gradeFilter, statusFilter]);
+}, [students, searchQuery, gradeFilter, statusFilter, departmentFilter]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -174,7 +179,25 @@ const Students = () => {
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+<option value="inactive">Inactive</option>
+              </Select>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <label className="text-sm font-medium text-gray-700">Department:</label>
+              <Select
+                value={departmentFilter}
+                onChange={(e) => setDepartmentFilter(e.target.value)}
+                className="w-40"
+              >
+                <option value="all">All Departments</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="English">English</option>
+                <option value="Science">Science</option>
+                <option value="History">History</option>
+                <option value="Arts">Arts</option>
+                <option value="Physical Education">Physical Education</option>
               </Select>
             </div>
             
@@ -260,10 +283,13 @@ const Students = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Grade Level</label>
                 <p className="text-sm text-gray-900">Grade {selectedStudent.gradeLevel}</p>
-              </div>
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Section</label>
                 <p className="text-sm text-gray-900">{selectedStudent.section}</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                <p className="text-sm text-gray-900">{selectedStudent.department}</p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Enrollment Date</label>
@@ -271,6 +297,7 @@ const Students = () => {
                   {new Date(selectedStudent.enrollmentDate).toLocaleDateString()}
                 </p>
               </div>
+            </div>
             </div>
             
             <div className="flex justify-end space-x-3">

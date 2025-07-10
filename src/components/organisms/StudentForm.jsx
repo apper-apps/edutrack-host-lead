@@ -5,12 +5,13 @@ import FormField from "@/components/molecules/FormField";
 import { studentService } from "@/services/api/studentService";
 
 const StudentForm = ({ student, onSuccess, onCancel }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     gradeLevel: "",
     section: "",
+    department: "",
     enrollmentDate: new Date().toISOString().split('T')[0],
     status: "active"
   });
@@ -18,12 +19,13 @@ const StudentForm = ({ student, onSuccess, onCancel }) => {
 
   useEffect(() => {
     if (student) {
-      setFormData({
+setFormData({
         name: student.name || "",
         email: student.email || "",
         phone: student.phone || "",
         gradeLevel: student.gradeLevel || "",
         section: student.section || "",
+        department: student.department || "",
         enrollmentDate: student.enrollmentDate ? new Date(student.enrollmentDate).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
         status: student.status || "active"
       });
@@ -120,6 +122,24 @@ const StudentForm = ({ student, onSuccess, onCancel }) => {
           <option value="B">Section B</option>
           <option value="C">Section C</option>
           <option value="D">Section D</option>
+</FormField>
+        
+        <FormField
+          label="Department"
+          name="department"
+          type="select"
+          value={formData.department}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Department</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="English">English</option>
+          <option value="Science">Science</option>
+          <option value="History">History</option>
+          <option value="Arts">Arts</option>
+          <option value="Physical Education">Physical Education</option>
         </FormField>
       </div>
       
@@ -131,7 +151,6 @@ const StudentForm = ({ student, onSuccess, onCancel }) => {
         onChange={handleChange}
         required
       />
-      
       <FormField
         label="Status"
         name="status"

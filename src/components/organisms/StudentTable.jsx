@@ -70,6 +70,15 @@ const StudentTable = ({ students, onEdit, onDelete, onView }) => {
                   <SortIcon field="section" />
                 </button>
               </th>
+<th className="px-6 py-4 text-left">
+                <button
+                  onClick={() => handleSort("department")}
+                  className="flex items-center space-x-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                >
+                  <span>Department</span>
+                  <SortIcon field="department" />
+                </button>
+              </th>
               <th className="px-6 py-4 text-left">
                 <button
                   onClick={() => handleSort("enrollmentDate")}
@@ -114,8 +123,11 @@ const StudentTable = ({ students, onEdit, onDelete, onView }) => {
                 <td className="px-6 py-4">
                   <span className="text-sm text-gray-900">{student.gradeLevel}</span>
                 </td>
-                <td className="px-6 py-4">
+<td className="px-6 py-4">
                   <span className="text-sm text-gray-900">{student.section}</span>
+                </td>
+                <td className="px-6 py-4">
+                  <span className="text-sm text-gray-900">{student.department}</span>
                 </td>
                 <td className="px-6 py-4">
                   <span className="text-sm text-gray-900">
